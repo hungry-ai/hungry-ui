@@ -1,68 +1,54 @@
 import Table from "react-bootstrap/Table";
 
-const stats = [
-[{category: 'Favorite Foods', id: 1, item: 'Food 1', percentMatch: 95}, 
-{id: 2, item: 'Food 2', percentMatch: 90},
-{id: 3, item: 'Food 3', percentMatch: 85},
-],
-[{category: 'Least Favortie Foods', id: 1, item: 'Food 1', percentMatch: 5}, 
-{id: 2, item: 'Food 2', percentMatch: 10},
-{id: 3, item: 'Food 3', percentMatch: 15},
-],
-[{category: 'Favorite Cuisines', id: 1, item: 'Cuisine 1', percentMatch: 95}, 
-{id: 2, item: 'Cuisine 2', percentMatch: 90},
-{id: 3, item: 'Cuisine 3', percentMatch: 85},
-],
-[{category: 'Least Favorite Cuisines', id: 1, item: 'Cuisine 1', percentMatch: 5}, 
-{id: 2, item: 'Cuisine 2', percentMatch: 10},
-{id: 3, item: 'Cuisine 3', percentMatch: 15}
-]
-]
-
-function itemMap(x){
-  if (typeof x.category === 'undefined'){
-    return (
-      <tr key={x.id}>
-        <td>{x.food}</td>
-        <td>{x.percentMatch}</td>
-      </tr>
-    );
-  }
-  else {
-    return (
-      <tr key={x.id}>
-        <td rowspan={3}>{x.category}</td>
-        <td>{x.food}</td>
-        <td>{x.percentMatch}</td>
-      </tr>
-    );
-  }
+const stats = {
+  "Favorite food": [
+    { item: "Food 1", percentMatch: 95 },
+    { item: "Food 2", percentMatch: 90 },
+    { item: "Food 3", percentMatch: 85 },
+  ],
+  "Least favorite food": [
+    { item: "Food 1", percentMatch: 5 },
+    { item: "Food 2", percentMatch: 10 },
+    { item: "Food 3", percentMatch: 15 },
+  ],
+  "Favorite cuisine": [
+    { item: "Cuisine 1", percentMatch: 95 },
+    { item: "Cuisine 2", percentMatch: 90 },
+    { item: "Cuisine 3", percentMatch: 85 },
+  ],
+  "Least favorite cuisine": [
+    { item: "Cuisine 1", percentMatch: 5 },
+    { item: "Cuisine 2", percentMatch: 10 },
+    { item: "Cuisine 3", percentMatch: 15 },
+  ],
 };
 
-export default function itemTable() {
-const statsTable1 = stats[0].map(itemMap)
-const statsTable2 = stats[1].map(itemMap)
-const statsTable3 = stats[2].map(itemMap)
-const statsTable4 = stats[3].map(itemMap)
+function ItemTable() {
+  const statsTable = Object.entries(stats).map(([statName, statValues]) =>
+    statValues.map((value, index) => (
+      <tr>
+        {index === 0 && <td rowspan={3}>{statName}</td>}
+        <td>{value.item}</td>
+        <td>{value.percentMatch}</td>
+      </tr>
+    ))
+  );
 
-return (
-  <div>
-    <h1>My Stats</h1>
-    <Table bordered>
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Item</th>
-          <th>Percent match</th>
-        </tr>
-      </thead>
-      <tbody>
-        {statsTable1}
-        {statsTable2}
-        {statsTable3}
-        {statsTable4}
-      </tbody>
-    </Table>
-  </div>
-);
-};
+  return (
+    <div>
+      <h1>My Stats</h1>
+      <Table bordered>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Item</th>
+            <th>Percent match</th>
+          </tr>
+        </thead>
+        <tbody>{statsTable}</tbody>
+      </Table>
+    </div>
+  );
+}
+
+export default ItemTable;
