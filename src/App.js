@@ -13,7 +13,7 @@ function App() {
       <div style={{ marginBottom: 24 }}>
         <SearchResults />
       </div>
-      <div>
+      <div style={{ marginBottom: 24 }}>
         <Reviews />
       </div>
       <div>

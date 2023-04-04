@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 const Stats = () => (
   <div>
     <h1>My stats</h1>
-    <Table bordered hover>
+    <Table bordered>
       <thead>
         <tr>
           <th>Category</th>
