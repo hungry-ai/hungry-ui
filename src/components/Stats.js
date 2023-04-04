@@ -1,21 +1,21 @@
 import Table from "react-bootstrap/Table";
 
 const stats = [
-[{category: 'Favorite Foods', id: 1, food: 'Food 1', percentMatch: 95}, 
-{id: 2, food: 'Food 2', percentMatch: 90},
-{id: 3, food: 'Food 3', percentMatch: 85},
+[{category: 'Favorite Foods', id: 1, item: 'Food 1', percentMatch: 95}, 
+{id: 2, item: 'Food 2', percentMatch: 90},
+{id: 3, item: 'Food 3', percentMatch: 85},
 ],
-[{category: 'Least Favortie Foods', id: 1, food: 'Food 1', percentMatch: 5}, 
-{id: 2, food: 'Food 2', percentMatch: 10},
-{id: 3, food: 'Food 3', percentMatch: 15},
+[{category: 'Least Favortie Foods', id: 1, item: 'Food 1', percentMatch: 5}, 
+{id: 2, item: 'Food 2', percentMatch: 10},
+{id: 3, item: 'Food 3', percentMatch: 15},
 ],
-[{category: 'Favorite Cuisines', id: 1, food: 'Food 1', percentMatch: 95}, 
-{id: 2, food: 'Food 2', percentMatch: 90},
-{id: 3, food: 'Food 3', percentMatch: 85},
+[{category: 'Favorite Cuisines', id: 1, item: 'Cuisine 1', percentMatch: 95}, 
+{id: 2, item: 'Cuisine 2', percentMatch: 90},
+{id: 3, item: 'Cuisine 3', percentMatch: 85},
 ],
-[{category: 'Least Favorite Cuisines', id: 1, food: 'Food 1', percentMatch: 5}, 
-{id: 2, food: 'Food 2', percentMatch: 10},
-{id: 3, food: 'Food 3', percentMatch: 15}
+[{category: 'Least Favorite Cuisines', id: 1, item: 'Cuisine 1', percentMatch: 5}, 
+{id: 2, item: 'Cuisine 2', percentMatch: 10},
+{id: 3, item: 'Cuisine 3', percentMatch: 15}
 ]
 ]
 
