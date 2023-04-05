@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 
-const Stats = () => (
+const Stats = ({ stats }) => (
   <div>
     <h1>My stats</h1>
     <Table bordered>
