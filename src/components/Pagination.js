@@ -42,8 +42,7 @@ const MyPagination = ({ totalPages, width, setPage }) => {
         </Pagination.Item>
       )}
       {left > 1 && <Pagination.Ellipsis />}
-      {Array.from(
-        { length: totalPages },
+      {Array.from({ length: totalPages }).map(
         (_, i) =>
           left <= i &&
           i <= right && (
@@ -74,3 +73,6 @@ const MyPagination = ({ totalPages, width, setPage }) => {
 };
 
 export default MyPagination;
+
+// TODO: image modal
+// TODO: replace pagination with infinite scroll
