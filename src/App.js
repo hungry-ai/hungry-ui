@@ -1,4 +1,5 @@
 import { useState, useTransition } from "react";
+import { useSearchParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchBar from "./components/SearchBar";
 import Reviews from "./components/Reviews";
@@ -10,9 +11,9 @@ import Container from "react-bootstrap/Container";
 
 const App = () => {
   // TODO: get initial state from a query string, if applicable
-  const [find, setFind] = useState("");
-  const [location, setLocation] = useState("");
-  const [instagramUsername, setInstagramUsername] = useState("");
+  //const [find, setFind] = useState("");
+  //const [location, setLocation] = useState("");
+  //const [instagramUsername, setInstagramUsername] = useState("");
 
   const [restaurants, setRestaurants] = useState(null);
   const [reviews, setReviews] = useState(null);
@@ -20,27 +21,12 @@ const App = () => {
 
   const [isPending, startTransition] = useTransition();
 
-  const search = (find, location, instagramUsername) => {
-    setFind(find);
-    setLocation(location);
-    setInstagramUsername(instagramUsername);
-
-    startTransition(() => {
-      setRestaurants("");
-      setReviews("");
-      setStats("");
-    });
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div className="App" style={{ padding: 24 }}>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar
-          defaultFind={find}
-          defaultLocation={location}
-          defaultInstagramUsername={instagramUsername}
-          onSearch={search}
-        />
+        <SearchBar setSearchParams={setSearchParams} />
       </div>
       {isPending ? (
         <Container style={{ textAlign: "center" }}>
