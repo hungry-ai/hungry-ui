@@ -5,6 +5,8 @@ import Review from "./Review";
 import Pagination from "../Pagination";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
 
 const sampleReviews = [
   {
@@ -33,39 +35,43 @@ const sampleReviews = [
   },
 ];
 
-const Reviews = ({ reviews }) => {
-  const [allReviews, setAllReviews] = useState(sampleReviews);
+const Reviews = ({ reviews, isPending }) => {
   const [page, setPage] = useState(0);
   const resultsPerPage = 5;
 
   return (
-    <div>
-      <h1>My reviews</h1>
-      {allReviews.length > 0 ? (
-        <>
-          <Row style={{ marginBottom: 16 }}>
-            {Array.from({ length: resultsPerPage }).map((_, index) => (
-              <Col>
-                {page * resultsPerPage + index < allReviews.length && (
-                  <Review
-                    url={allReviews[page * resultsPerPage + index].url}
-                    stars={allReviews[page * resultsPerPage + index].rating}
-                    key={index}
-                  />
-                )}
-              </Col>
-            ))}
-          </Row>
-          <Pagination
-            totalPages={Math.ceil(allReviews.length / resultsPerPage)}
-            width={4}
-            setPage={setPage}
-          />
-        </>
-      ) : (
-        <p>No reviews found.</p>
-      )}
-    </div>
+    (isPending || Array.isArray(reviews)) && (
+      <>
+        <h1>My reviews</h1>
+        {isPending ? (
+          <Container style={{ textAlign: "center" }}>
+            <Spinner animation="border" />
+          </Container>
+        ) : reviews.length > 0 ? (
+          <>
+            <Row style={{ marginBottom: 16 }}>
+              {Array.from({ length: resultsPerPage }).map((_, index) => (
+                <Col key={index}>
+                  {page * resultsPerPage + index < reviews.length && (
+                    <Review
+                      url={reviews[page * resultsPerPage + index].url}
+                      stars={reviews[page * resultsPerPage + index].rating}
+                    />
+                  )}
+                </Col>
+              ))}
+            </Row>
+            <Pagination
+              totalPages={Math.ceil(reviews.length / resultsPerPage)}
+              width={4}
+              setPage={setPage}
+            />
+          </>
+        ) : (
+          <p>No reviews found.</p>
+        )}
+      </>
+    )
   );
 };
 

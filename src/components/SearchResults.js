@@ -4,6 +4,8 @@ import Carousel from "react-bootstrap/Carousel";
 import Pagination from "./Pagination";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
 
 const Restaurant = ({ name, thumbnails }) => (
   <Card style={{ marginBottom: 16 }}>
@@ -50,35 +52,40 @@ const sampleResults = [
   },
 ];
 
-const SearchResults = ({ restaurants }) => {
-  const [allResults, setAllResults] = useState([]);
+const SearchResults = ({ restaurants, isPending }) => {
   const [page, setPage] = useState(0);
   const resultsPerPage = 10;
 
   return (
-    <div>
-      <h1>Search results</h1>
-      {allResults.length > 0 ? (
-        <>
-          {allResults
-            .slice(page * resultsPerPage, (page + 1) * resultsPerPage)
-            .map((result, index) => (
-              <Restaurant
-                name={result.name}
-                thumbnails={result.thumbnails}
-                key={index}
-              />
-            ))}
-          <Pagination
-            totalPages={Math.ceil(allResults.length / resultsPerPage)}
-            width={4}
-            setPage={setPage}
-          />
-        </>
-      ) : (
-        <p>No results found.</p>
-      )}
-    </div>
+    (isPending || Array.isArray(restaurants)) && (
+      <>
+        <h1>Search results</h1>
+        {isPending ? (
+          <Container style={{ textAlign: "center" }}>
+            <Spinner animation="border" />
+          </Container>
+        ) : restaurants.length > 0 ? (
+          <>
+            {restaurants
+              .slice(page * resultsPerPage, (page + 1) * resultsPerPage)
+              .map((result, index) => (
+                <Restaurant
+                  name={result.name}
+                  thumbnails={result.thumbnails}
+                  key={index}
+                />
+              ))}
+            <Pagination
+              totalPages={Math.ceil(restaurants.length / resultsPerPage)}
+              width={4}
+              setPage={setPage}
+            />
+          </>
+        ) : (
+          <p>No results found.</p>
+        )}
+      </>
+    )
   );
 };
 

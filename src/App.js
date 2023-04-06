@@ -1,72 +1,84 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchBar from "./components/SearchBar";
 import Reviews from "./components/Reviews";
 import Stats from "./components/Stats";
 import SearchResults from "./components/SearchResults";
 import About from "./components/About";
-import Spinner from "react-bootstrap/Spinner";
-import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
+import { loadRestaurants, loadReviews, loadStats } from "./services/search";
 
 const App = () => {
-  // TODO: get initial state from a query string, if applicable
-  const [find, setFind] = useState("");
-  const [location, setLocation] = useState("");
-  const [instagramUsername, setInstagramUsername] = useState("");
-
   const [restaurants, setRestaurants] = useState(null);
   const [reviews, setReviews] = useState(null);
   const [stats, setStats] = useState(null);
+  const [showHome, setShowHome] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
 
-  const [isPending, startTransition] = useTransition();
+  const [isRestaurantsPending, setIsRestaurantsPending] = useState(true);
+  const [isReviewsPending, setIsReviewsPending] = useState(true);
+  const [isStatsPending, setIsStatsPending] = useState(true);
 
   const search = (find, location, instagramUsername) => {
-    setFind(find);
-    setLocation(location);
-    setInstagramUsername(instagramUsername);
+    setShowHome(false);
 
-    startTransition(() => {
-      setRestaurants("");
-      setReviews("");
-      setStats("");
-    });
+    setIsRestaurantsPending(true);
+    loadRestaurants(find, location, instagramUsername)
+      .then((restaurants) => setRestaurants(restaurants))
+      .finally(() => setIsRestaurantsPending(false));
+
+    if (instagramUsername) {
+      setShowAlert(false);
+
+      setIsReviewsPending(true);
+      loadReviews(instagramUsername)
+        .then((reviews) => setReviews(reviews))
+        .finally(() => setIsReviewsPending(false));
+
+      setIsStatsPending(true);
+      loadStats(instagramUsername)
+        .then((stats) => setStats(stats))
+        .finally(() => setIsStatsPending(false));
+    } else {
+      setShowAlert(true);
+
+      setIsReviewsPending(false);
+      setReviews(null);
+
+      setIsStatsPending(false);
+      setStats(null);
+    }
   };
 
   return (
     <div className="App" style={{ padding: 24 }}>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar
-          defaultFind={find}
-          defaultLocation={location}
-          defaultInstagramUsername={instagramUsername}
-          onSearch={search}
-        />
+        <SearchBar onSearch={search} />
       </div>
-      {isPending ? (
-        <Container style={{ textAlign: "center" }}>
-          <Spinner animation="border" />
-        </Container>
-      ) : restaurants == null && reviews == null && stats == null ? (
-        <div>
-          <About />
-        </div>
+      {showHome ? (
+        <About />
       ) : (
         <>
-          {restaurants != null && (
-            <div style={{ marginBottom: 24 }}>
-              <SearchResults restaurants={restaurants} />
-            </div>
+          {showAlert && (
+            <Alert
+              variant="info"
+              onClose={() => setShowAlert(false)}
+              dismissible
+            >
+              Enter your Instagram username for more personalized
+              recommendations!
+            </Alert>
           )}
-          {reviews != null && (
-            <div style={{ marginBottom: 24 }}>
-              <Reviews reviews={reviews} />
-            </div>
-          )}
-          {stats != null && (
-            <div>
-              <Stats stats={stats} />
-            </div>
-          )}
+          <div style={{ marginBottom: 24 }}>
+            <SearchResults
+              restaurants={restaurants}
+              isPending={isRestaurantsPending}
+            />
+          </div>
+          <div style={{ marginBottom: 24 }}>
+            <Reviews reviews={reviews} isPending={isReviewsPending} />
+          </div>
+          <Stats stats={stats} isPending={isStatsPending} />
         </>
       )}
     </div>
@@ -74,3 +86,5 @@ const App = () => {
 };
 
 export default App;
+
+// TODO: get initial state from a query string, if applicable
