@@ -6,10 +6,10 @@ import Navbar from "react-bootstrap/Navbar";
 import { FaMapMarkerAlt, FaAt, FaSearch, FaPizzaSlice } from "react-icons/fa";
 
 const SearchBar = ({
+  setSearchParams,
   defaultFind,
   defaultLocation,
   defaultInstagramUsername,
-  onSearch,
 }) => {
   const [find, setFind] = useState(defaultFind);
   const [location, setLocation] = useState(defaultLocation);
@@ -18,7 +18,15 @@ const SearchBar = ({
   );
   const onSubmit = (e) => {
     e.preventDefault();
-    onSearch(find, location, instagramUsername);
+    setSearchParams(
+      Object.fromEntries(
+        Object.entries({
+          find: find,
+          location: location,
+          instagramUsername: instagramUsername,
+        }).filter(([_, v]) => v)
+      )
+    );
   };
 
   return (
@@ -33,6 +41,7 @@ const SearchBar = ({
           <Form.Control
             placeholder="pizza, Japanese, brunch"
             onChange={(e) => setFind(e.target.value)}
+            defaultValue={find}
           />
           <InputGroup.Text id="basic-addon1">
             <FaMapMarkerAlt />
@@ -41,6 +50,7 @@ const SearchBar = ({
             placeholder="neighborhood, city, zip code"
             style={{ maxWidth: 280 }}
             onChange={(e) => setLocation(e.target.value)}
+            defaultValue={location}
           />
           <InputGroup.Text id="basic-addon1">
             <FaAt />
@@ -49,6 +59,7 @@ const SearchBar = ({
             placeholder="instagram"
             style={{ maxWidth: 200 }}
             onChange={(e) => setInstagramUsername(e.target.value)}
+            defaultValue={instagramUsername}
           />
           <Button variant="primary" type="submit">
             <FaSearch />

@@ -7,13 +7,15 @@ import Stats from "./components/Stats";
 import SearchResults from "./components/SearchResults";
 import About from "./components/About";
 import Alert from "react-bootstrap/Alert";
-import { loadRestaurants, loadReviews, loadStats } from "./services/search";
+import { loadRestaurants, loadReviews, loadStats } from "./services/searchTest";
 
 const App = () => {
-  // TODO: get initial state from a query string, if applicable
-  const [find, setFind] = useState("");
-  const [location, setLocation] = useState("");
-  const [instagramUsername, setInstagramUsername] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [find, setFind] = useState(searchParams.get("find"));
+  const [location, setLocation] = useState(searchParams.get("location"));
+  const [instagramUsername, setInstagramUsername] = useState(
+    searchParams.get("instagramUsername")
+  );
 
   const [restaurants, setRestaurants] = useState("");
   const [reviews, setReviews] = useState("");
@@ -24,15 +26,12 @@ const App = () => {
   const [isRestaurantsPending, setIsRestaurantsPending] = useState(true);
   const [isReviewsPending, setIsReviewsPending] = useState(true);
   const [isStatsPending, setIsStatsPending] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  function onSearch(find, location, instagramUsername) {
-    setSearchParams({
-      find: find,
-      location: location,
-      instagramUsername: instagramUsername,
-    });
-    alert("changed");
+  useEffect(() => {
+    setFind(searchParams.get("find"));
+    setLocation(searchParams.get("location"));
+    setInstagramUsername(searchParams.get("instagramUsername"));
+
     setShowHome(false);
     setIsRestaurantsPending(true);
     loadRestaurants(find, location, instagramUsername)
@@ -60,12 +59,17 @@ const App = () => {
       setIsStatsPending(false);
       setStats(null);
     }
-  }
+  }, [searchParams]);
 
   return (
     <div className="App" style={{ padding: 24 }}>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar onSearch={onSearch} />
+        <SearchBar
+          setSearchParams={setSearchParams}
+          defaultFind={find}
+          defaultLocation={location}
+          defaultInstagramUsername={instagramUsername}
+        />
       </div>
       {showHome ? (
         <About />
