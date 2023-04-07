@@ -25,22 +25,14 @@ const App = () => {
   const [isReviewsPending, setIsReviewsPending] = useState(true);
   const [isStatsPending, setIsStatsPending] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(setSearchParams);
 
-  function search(searchParams, restaurants, reviews, stats) {
-    let find = searchParams.get("find");
-    let location = searchParams.get("location");
-    let instagramUsername = searchParams.get("instagramUsername");
-    loadRestaurants(find, location, instagramUsername);
-    setRestaurants(restaurants);
-    setReviews(reviews);
-    setStats(stats);
-    setShowHome(false);
-    return search;
-  }
-
-  /*
-  const search = (find, location, instagramUsername) => {
+  function onSearch(find, location, instagramUsername) {
+    setSearchParams({
+      find: find,
+      location: location,
+      instagramUsername: instagramUsername,
+    });
+    alert("changed");
     setShowHome(false);
     setIsRestaurantsPending(true);
     loadRestaurants(find, location, instagramUsername)
@@ -68,13 +60,12 @@ const App = () => {
       setIsStatsPending(false);
       setStats(null);
     }
-  };
-  */
+  }
 
   return (
     <div className="App" style={{ padding: 24 }}>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar onClick={search} />
+        <SearchBar onSearch={onSearch} />
       </div>
       {showHome ? (
         <About />

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
@@ -10,7 +9,7 @@ const SearchBar = ({
   defaultFind,
   defaultLocation,
   defaultInstagramUsername,
-  setSearchParams,
+  onSearch,
 }) => {
   const [find, setFind] = useState(defaultFind);
   const [location, setLocation] = useState(defaultLocation);
@@ -19,11 +18,7 @@ const SearchBar = ({
   );
   const onSubmit = (e) => {
     e.preventDefault();
-    setSearchParams({
-      find: find,
-      location: location,
-      instagramUsername: instagramUsername,
-    });
+    onSearch(find, location, instagramUsername);
   };
 
   return (
