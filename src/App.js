@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchBar from "./components/SearchBar";
 import Reviews from "./components/Reviews";
@@ -7,32 +6,23 @@ import Stats from "./components/Stats";
 import SearchResults from "./components/SearchResults";
 import About from "./components/About";
 import Alert from "react-bootstrap/Alert";
-import { loadRestaurants, loadReviews, loadStats } from "./services/searchTest";
+import { loadRestaurants, loadReviews, loadStats } from "./services/search";
 
 const App = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [find, setFind] = useState(searchParams.get("find"));
-  const [location, setLocation] = useState(searchParams.get("location"));
-  const [instagramUsername, setInstagramUsername] = useState(
-    searchParams.get("instagramUsername")
-  );
-
-  const [restaurants, setRestaurants] = useState("");
-  const [reviews, setReviews] = useState("");
-  const [stats, setStats] = useState("");
   const [showHome, setShowHome] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
+
+  const [restaurants, setRestaurants] = useState(null);
+  const [reviews, setReviews] = useState(null);
+  const [stats, setStats] = useState(null);
 
   const [isRestaurantsPending, setIsRestaurantsPending] = useState(true);
   const [isReviewsPending, setIsReviewsPending] = useState(true);
   const [isStatsPending, setIsStatsPending] = useState(true);
 
-  useEffect(() => {
-    setFind(searchParams.get("find"));
-    setLocation(searchParams.get("location"));
-    setInstagramUsername(searchParams.get("instagramUsername"));
-
+  const onSearch = (find, location, instagramUsername) => {
     setShowHome(false);
+
     setIsRestaurantsPending(true);
     loadRestaurants(find, location, instagramUsername)
       .then((restaurants) => setRestaurants(restaurants))
@@ -59,17 +49,12 @@ const App = () => {
       setIsStatsPending(false);
       setStats(null);
     }
-  }, [searchParams]);
+  };
 
   return (
     <div className="App" style={{ padding: 24 }}>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar
-          setSearchParams={setSearchParams}
-          defaultFind={find}
-          defaultLocation={location}
-          defaultInstagramUsername={instagramUsername}
-        />
+        <SearchBar onSearch={onSearch} />
       </div>
       {showHome ? (
         <About />

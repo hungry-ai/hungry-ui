@@ -8,33 +8,6 @@ import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 
-const sampleReviews = [
-  {
-    url: "https://s3-media0.fl.yelpcdn.com/bphoto/Xeh88cmJFeKnwkN9xk_x5A/o.jpg",
-    rating: 5,
-  },
-  {
-    url: "https://s3-media0.fl.yelpcdn.com/bphoto/CKX73QPlH1HJ75XaHVtWew/o.jpg",
-    rating: 3,
-  },
-  {
-    url: "https://s3-media0.fl.yelpcdn.com/bphoto/wBGVdyMMDLshWeXxvVdZaA/o.jpg",
-    rating: 4,
-  },
-  {
-    url: "https://s3-media0.fl.yelpcdn.com/bphoto/hBVZcjwf3bTTpQruc6OxKA/o.jpg",
-    rating: 1,
-  },
-  {
-    url: "https://s3-media0.fl.yelpcdn.com/bphoto/fAqSxbkmAt-jbbTxN4h77Q/o.jpg",
-    rating: 2,
-  },
-  {
-    url: "https://s3-media0.fl.yelpcdn.com/bphoto/fAqSxbkmAt-jbbTxN4h77Q/o.jpg",
-    rating: 2,
-  },
-];
-
 const Reviews = ({ reviews, isPending }) => {
   const [page, setPage] = useState(0);
   const resultsPerPage = 5;

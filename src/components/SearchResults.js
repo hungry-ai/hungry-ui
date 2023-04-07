@@ -28,30 +28,6 @@ const Restaurant = ({ name, thumbnails }) => (
   </Card>
 );
 
-const sampleResults = [
-  {
-    name: "Little Asia",
-    thumbnails: [
-      "https://s3-media0.fl.yelpcdn.com/bphoto/C9mGUTu3v8Od96GWVfNtcQ/348s.jpg",
-      "https://s3-media0.fl.yelpcdn.com/bphoto/z1BjT-snZhPfhBoXI46m0w/348s.jpg",
-    ],
-  },
-  {
-    name: "Everyday Noodles",
-    thumbnails: [
-      "https://s3-media0.fl.yelpcdn.com/bphoto/khvTYhE9avLGf0s8tdvFeQ/348s.jpg",
-      "https://s3-media0.fl.yelpcdn.com/bphoto/zvtGoP-oMUlproYL2f8Flw/348s.jpg",
-    ],
-  },
-  {
-    name: "Pink Box",
-    thumbnails: [
-      "https://s3-media0.fl.yelpcdn.com/bphoto/9B8snlzvzwXOZ77oBP6COw/348s.jpg",
-      "https://s3-media0.fl.yelpcdn.com/bphoto/NSLCZiM4FGvg-XZEpD3Zbg/348s.jpg",
-    ],
-  },
-];
-
 const SearchResults = ({ restaurants, isPending }) => {
   const [page, setPage] = useState(0);
   const resultsPerPage = 10;
