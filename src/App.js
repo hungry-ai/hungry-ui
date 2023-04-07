@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchBar from "./components/SearchBar";
 import Reviews from "./components/Reviews";
@@ -9,19 +10,30 @@ import Alert from "react-bootstrap/Alert";
 import { loadRestaurants, loadReviews, loadStats } from "./services/search";
 
 const App = () => {
-  const [restaurants, setRestaurants] = useState(null);
-  const [reviews, setReviews] = useState(null);
-  const [stats, setStats] = useState(null);
+  // TODO: get initial state from a query string, if applicable
+  const [find, setFind] = useState("");
+  const [location, setLocation] = useState("");
+  const [instagramUsername, setInstagramUsername] = useState("");
+
+  const [restaurants, setRestaurants] = useState("");
+  const [reviews, setReviews] = useState("");
+  const [stats, setStats] = useState("");
   const [showHome, setShowHome] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
 
   const [isRestaurantsPending, setIsRestaurantsPending] = useState(true);
   const [isReviewsPending, setIsReviewsPending] = useState(true);
   const [isStatsPending, setIsStatsPending] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = (find, location, instagramUsername) => {
+  function onSearch(find, location, instagramUsername) {
+    setSearchParams({
+      find: find,
+      location: location,
+      instagramUsername: instagramUsername,
+    });
+    alert("changed");
     setShowHome(false);
-
     setIsRestaurantsPending(true);
     loadRestaurants(find, location, instagramUsername)
       .then((restaurants) => setRestaurants(restaurants))
@@ -48,12 +60,12 @@ const App = () => {
       setIsStatsPending(false);
       setStats(null);
     }
-  };
+  }
 
   return (
     <div className="App" style={{ padding: 24 }}>
       <div style={{ marginBottom: 24 }}>
-        <SearchBar onSearch={search} />
+        <SearchBar onSearch={onSearch} />
       </div>
       {showHome ? (
         <About />

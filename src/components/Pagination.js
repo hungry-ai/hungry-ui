@@ -34,10 +34,10 @@ const MyPagination = ({ totalPages, width, setPage }) => {
     <Pagination className="d-flex justify-content-center">
       <Pagination.Prev
         onClick={navigate(currentPage - 1)}
-        disabled={currentPage == 0}
+        disabled={currentPage === 0}
       />
       {left > 0 && (
-        <Pagination.Item onClick={navigate(0)} active={currentPage == 0}>
+        <Pagination.Item onClick={navigate(0)} active={currentPage === 0}>
           {1}
         </Pagination.Item>
       )}
@@ -48,7 +48,7 @@ const MyPagination = ({ totalPages, width, setPage }) => {
           i <= right && (
             <Pagination.Item
               onClick={navigate(i)}
-              active={currentPage == i}
+              active={currentPage === i}
               key={i}
             >
               {i + 1}
@@ -59,14 +59,14 @@ const MyPagination = ({ totalPages, width, setPage }) => {
       {right < totalPages - 1 && (
         <Pagination.Item
           onClick={navigate(totalPages - 1)}
-          active={currentPage == totalPages - 1}
+          active={currentPage === totalPages - 1}
         >
           {totalPages}
         </Pagination.Item>
       )}
       <Pagination.Next
         onClick={navigate(currentPage + 1)}
-        disabled={currentPage == totalPages - 1}
+        disabled={currentPage === totalPages - 1}
       />
     </Pagination>
   );

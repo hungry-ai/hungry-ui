@@ -16,14 +16,14 @@ const SearchBar = ({
   const [instagramUsername, setInstagramUsername] = useState(
     defaultInstagramUsername
   );
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onSearch(find, location, instagramUsername);
+  };
 
   return (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSearch(find, location, instagramUsername);
-      }}
-    >
+    //make onsubmit where you post form inputs into url in query string
+    <Form onSubmit={onSubmit}>
       <Navbar>
         <Navbar.Brand>Hungry AI</Navbar.Brand>
         <InputGroup>
@@ -60,5 +60,3 @@ const SearchBar = ({
 };
 
 export default SearchBar;
-
-// TODO: post query to url in query string
