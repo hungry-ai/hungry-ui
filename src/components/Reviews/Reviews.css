@@ -4,4 +4,9 @@
 
 .thumbnail {
   object-fit: cover;
+  background-image: url("https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #545454;
+  background-size: 371px 280px;
 }
