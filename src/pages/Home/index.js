@@ -1,14 +1,18 @@
 import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import SearchBar from "./components/SearchBar";
-import Reviews from "./components/Reviews";
-import Stats from "./components/Stats";
-import SearchResults from "./components/SearchResults";
-import About from "./components/About";
+import SearchBar from "../../components/SearchBar";
+import Reviews from "../../components/Reviews";
+import Stats from "../../components/Stats";
+import SearchResults from "../../components/SearchResults";
+import About from "../../components/About";
 import Alert from "react-bootstrap/Alert";
-import { loadRestaurants, loadReviews, loadStats } from "./services/search";
+// import { loadRestaurants, loadReviews, loadStats } from "../../services/search";
+import {
+  loadRestaurants,
+  loadReviews,
+  loadStats,
+} from "../../services/searchTest";
 
-const App = () => {
+const Home = () => {
   const [showHome, setShowHome] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -86,6 +90,4 @@ const App = () => {
   );
 };
 
-export default App;
-
-// TODO: get initial state from a query string, if applicable
+export default Home;

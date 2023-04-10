@@ -101,18 +101,23 @@ const ReviewsList = ({ reviews }) => {
   );
 };
 
-const Reviews = ({ reviews, isPending }) =>
-  (isPending || reviews != null) && (
-    <>
-      <h1>My reviews</h1>
-      {isPending ? (
-        <Container style={{ textAlign: "center" }}>
-          <Spinner animation="border" />
-        </Container>
-      ) : (
-        <ReviewsList reviews={reviews} />
-      )}
-    </>
+const Reviews = ({ reviews, isPending }) => {
+  const [showAlert, setShowAlert] = useState(true);
+
+  return (
+    (isPending || reviews != null) && (
+      <>
+        <h1>My reviews</h1>
+        {isPending ? (
+          <Container style={{ textAlign: "center" }}>
+            <Spinner animation="border" />
+          </Container>
+        ) : (
+          <ReviewsList reviews={reviews} />
+        )}
+      </>
+    )
   );
+};
 
 export default Reviews;
