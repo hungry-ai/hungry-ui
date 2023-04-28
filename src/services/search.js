@@ -18,14 +18,14 @@ export const loadReviews = async (instagramUsername) =>
       return [];
     });
 
-export const loadStats = async (instagramUsername) =>
+/*export const loadStats = async (instagramUsername) =>
   axios
     .get(`http://localhost:5000/instagram/${instagramUsername}/stats`)
     .then((res) => res.data)
     .catch((error) => {
       console.log("loadStats failed");
       return {};
-    });
+    });*/
 
 export const loadAllReviews = async () =>
   axios

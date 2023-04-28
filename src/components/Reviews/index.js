@@ -84,7 +84,7 @@ const ReviewsList = ({ reviews }) => {
           <Spinner animation="border" />
         </Container>
       )}
-      {
+      {(numLoaded > 0 || processedReviews.length < reviews.length) && (
         <div className="d-grid">
           <Button
             variant="primary"
@@ -96,7 +96,7 @@ const ReviewsList = ({ reviews }) => {
             Load more...
           </Button>
         </div>
-      }
+      )}
     </>
   );
 };
