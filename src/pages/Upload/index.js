@@ -14,8 +14,7 @@ const Upload = () => {
 
   useEffect(() => {
     if (images.length < 1 || images.length > imageCap) return;
-    const newImageUrls = [];
-    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    const newImageUrls = [...imageURLs, ...images.map(URL.createObjectURL)];
     setImageURLs(newImageUrls);
   }, [images]);
 
