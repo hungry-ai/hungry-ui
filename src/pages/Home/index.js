@@ -5,12 +5,12 @@ import Reviews from "../../components/Reviews";
 import SearchResults from "../../components/SearchResults";
 import About from "../../components/About";
 import Alert from "react-bootstrap/Alert";
-//import { loadRestaurants, loadReviews } from "../../services/search";
-import {
+import { loadRestaurants, loadReviews } from "../../services/search";
+/*import {
   loadRestaurants,
   loadReviews,
-  loadStats,
-} from "../../services/searchTest";
+  //loadStats,
+} from "../../services/searchTest";*/
 
 const Home = () => {
   const [showHome, setShowHome] = useState(true);
@@ -28,7 +28,7 @@ const Home = () => {
     setShowHome(false);
 
     setIsRestaurantsPending(true);
-    loadRestaurants(find, location, instagramUsername)
+    loadRestaurants(instagramUsername, location)
       .then((restaurants) => setRestaurants(restaurants))
       .finally(() => setIsRestaurantsPending(false));
 
