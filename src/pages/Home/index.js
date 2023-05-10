@@ -1,16 +1,16 @@
 import { useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import Reviews from "../../components/Reviews";
-import Stats from "../../components/Stats";
+//import Stats from "../../components/Stats";
 import SearchResults from "../../components/SearchResults";
 import About from "../../components/About";
 import Alert from "react-bootstrap/Alert";
-// import { loadRestaurants, loadReviews, loadStats } from "../../services/search";
-import {
+import { loadRestaurants, loadReviews } from "../../services/search";
+/*import {
   loadRestaurants,
   loadReviews,
-  loadStats,
-} from "../../services/searchTest";
+  //loadStats,
+} from "../../services/searchTest";*/
 
 const Home = () => {
   const [showHome, setShowHome] = useState(true);
@@ -18,17 +18,17 @@ const Home = () => {
 
   const [restaurants, setRestaurants] = useState(null);
   const [reviews, setReviews] = useState(null);
-  const [stats, setStats] = useState(null);
+  // const [stats, setStats] = useState(null);
 
   const [isRestaurantsPending, setIsRestaurantsPending] = useState(true);
   const [isReviewsPending, setIsReviewsPending] = useState(true);
-  const [isStatsPending, setIsStatsPending] = useState(true);
+  // const [isStatsPending, setIsStatsPending] = useState(true);
 
   const onSearch = (find, location, instagramUsername) => {
     setShowHome(false);
 
     setIsRestaurantsPending(true);
-    loadRestaurants(find, location, instagramUsername)
+    loadRestaurants(instagramUsername, location)
       .then((restaurants) => setRestaurants(restaurants))
       .finally(() => setIsRestaurantsPending(false));
 
@@ -40,18 +40,18 @@ const Home = () => {
         .then((reviews) => setReviews(reviews))
         .finally(() => setIsReviewsPending(false));
 
-      setIsStatsPending(true);
+      /*setIsStatsPending(true);
       loadStats(instagramUsername)
         .then((stats) => setStats(stats))
-        .finally(() => setIsStatsPending(false));
+        .finally(() => setIsStatsPending(false));*/
     } else {
       setShowAlert(true);
 
       setIsReviewsPending(false);
       setReviews(null);
 
-      setIsStatsPending(false);
-      setStats(null);
+      /*setIsStatsPending(false);
+      setStats(null);*/
     }
   };
 
@@ -83,7 +83,7 @@ const Home = () => {
           <div style={{ marginBottom: 24 }}>
             <Reviews reviews={reviews} isPending={isReviewsPending} />
           </div>
-          <Stats stats={stats} isPending={isStatsPending} />
+          {/* <Stats stats={stats} isPending={isStatsPending} /> */}
         </>
       )}
     </div>

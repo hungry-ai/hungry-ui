@@ -1,37 +1,34 @@
 import axios from "axios";
 
-export const loadRestaurants = async (find, location, instagramUsername) =>
+export const loadRestaurants = async (instagramUsername, zip) =>
   axios
-    .get(`http://localhost:5000/instagram/${instagramUsername}/restaurants`)
+    .get(`http://localhost:5000/instagram/restaurants`, {
+      params: { username: instagramUsername, zip: zip },
+    })
     .then((res) => res.data)
     .catch((error) => {
-      console.log("loadRestaurants failed");
+      console.log(
+        `loadRestaurants(${instagramUsername}, ${zip}) failed:\n${error}`
+      );
       return [];
     });
 
 export const loadReviews = async (instagramUsername) =>
   axios
-    .get(`http://localhost:5000/instagram/${instagramUsername}/stories`)
+    .get(`http://localhost:5000/instagram/stories`, {
+      params: { username: instagramUsername },
+    })
     .then((res) => res.data)
     .catch((error) => {
-      console.log("loadReviews failed");
+      console.log(`loadReviews(${instagramUsername}) failed:\n${error}`);
       return [];
-    });
-
-export const loadStats = async (instagramUsername) =>
-  axios
-    .get(`http://localhost:5000/instagram/${instagramUsername}/stats`)
-    .then((res) => res.data)
-    .catch((error) => {
-      console.log("loadStats failed");
-      return {};
     });
 
 export const loadAllReviews = async () =>
   axios
-    .get(`http://localhost:5000/instagram/all-stories`)
+    .get(`http://localhost:5000/instagram/stories`)
     .then((res) => res.data)
     .catch((error) => {
-      console.log("loadAllReviews failed");
+      console.log(`loadAllReviews() failed:\n${error}`);
       return [];
     });
