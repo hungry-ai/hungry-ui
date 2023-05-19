@@ -40,6 +40,7 @@ const SearchBar = ({ onSearch }) => {
       <Navbar>
         <Navbar.Brand>Hungry AI</Navbar.Brand>
         <InputGroup>
+          {/*
           <InputGroup.Text>
             <FaPizzaSlice />
           </InputGroup.Text>
@@ -48,6 +49,7 @@ const SearchBar = ({ onSearch }) => {
             onChange={(e) => setFind(e.target.value)}
             defaultValue={searchParams.get("find")}
           />
+        */}
           <InputGroup.Text id="basic-addon1">
             <FaMapMarkerAlt />
           </InputGroup.Text>
@@ -56,6 +58,9 @@ const SearchBar = ({ onSearch }) => {
             style={{ maxWidth: 280 }}
             onChange={(e) => setLocation(e.target.value)}
             defaultValue={searchParams.get("location")}
+            pattern="[0-9]{5}"
+            title="Zipcode must be a 5-digit number."
+            required
           />
           <InputGroup.Text id="basic-addon1">
             <FaAt />
