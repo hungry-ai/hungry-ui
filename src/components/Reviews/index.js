@@ -105,7 +105,7 @@ const Reviews = ({ reviews, isPending }) => {
   //const [showAlert, setShowAlert] = useState(true);
 
   return (
-    (isPending || reviews != null) && (
+    (isPending || Array.isArray(reviews)) && (
       <>
         <h1>My reviews</h1>
         {isPending ? (
