@@ -210,7 +210,7 @@ const sampleStats = {
   ],
 };
 
-export const loadRestaurants = async (find, location, instagramUsername) =>
+export const loadRestaurants = async (/*find,*/ location, instagramUsername) =>
   sampleRestaurants;
 
 export const loadReviews = async (instagramUsername) => sampleReviews;
