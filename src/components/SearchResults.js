@@ -14,7 +14,7 @@ const Restaurant = ({ name, thumbnails }) => (
         <Carousel style={{ width: 240, height: 240 }}>
           {thumbnails.map((url, index) => (
             <Carousel.Item key={index}>
-              <img src={url} width={240} height={240} />
+              <img src={url} width={240} height={240} alt={name} />
             </Carousel.Item>
           ))}
         </Carousel>
@@ -47,7 +47,7 @@ const SearchResults = ({ restaurants, isPending }) => {
               .map((result, index) => (
                 <Restaurant
                   name={result.name}
-                  thumbnails={result.thumbnails}
+                  thumbnails={result.images.map((image) => image.url)}
                   key={index}
                 />
               ))}

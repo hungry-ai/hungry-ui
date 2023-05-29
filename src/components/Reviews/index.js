@@ -58,13 +58,13 @@ const ReviewsList = ({ reviews }) => {
   };
 
   useEffect(() => {
-    if (numLoading == 0 || processedReviews.length == reviews.length)
+    if (numLoading === 0 || processedReviews.length === reviews.length)
       setNumProcessed(processedReviews.length);
-  }, [numLoading, processedReviews]);
+  }, [numLoading, processedReviews, reviews]);
 
   return (
     <>
-      {numLoaded == 0 && processedReviews.length == reviews.length && (
+      {numLoaded === 0 && processedReviews.length === reviews.length && (
         <p>No reviews found.</p>
       )}
       <Row xs={2} md={3} lg={6}>
@@ -89,7 +89,7 @@ const ReviewsList = ({ reviews }) => {
           <Button
             variant="primary"
             disabled={
-              numLoading > 0 || processedReviews.length == reviews.length
+              numLoading > 0 || processedReviews.length === reviews.length
             }
             onClick={load}
           >
@@ -102,10 +102,10 @@ const ReviewsList = ({ reviews }) => {
 };
 
 const Reviews = ({ reviews, isPending }) => {
-  const [showAlert, setShowAlert] = useState(true);
+  //const [showAlert, setShowAlert] = useState(true);
 
   return (
-    (isPending || reviews != null) && (
+    (isPending || Array.isArray(reviews)) && (
       <>
         <h1>My reviews</h1>
         {isPending ? (

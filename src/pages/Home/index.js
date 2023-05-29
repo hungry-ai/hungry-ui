@@ -24,7 +24,7 @@ const Home = () => {
   const [isReviewsPending, setIsReviewsPending] = useState(true);
   // const [isStatsPending, setIsStatsPending] = useState(true);
 
-  const onSearch = (find, location, instagramUsername) => {
+  const onSearch = (/*find,*/ location, instagramUsername) => {
     setShowHome(false);
 
     setIsRestaurantsPending(true);
