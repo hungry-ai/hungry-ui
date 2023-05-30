@@ -33,7 +33,7 @@ const Review = ({ url, username, rating, timestamp, onLoad, onError }) => {
 };
 
 const ReviewsRow = ({ reviews, rating }) => {
-  const [validReviews, _] = useState(
+  const [validReviews] = useState(
     reviews.filter(
       (review) =>
         review.rating === rating && review.username !== `i.rate.${rating}`
