@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
-import Review from "../../components/Reviews/Review";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -16,7 +14,7 @@ const Upload = () => {
     if (images.length < 1 || images.length > imageCap) return;
     const newImageUrls = [...imageURLs, ...images.map(URL.createObjectURL)];
     setImageURLs(newImageUrls);
-  }, [images]);
+  }, [images, imageURLs]);
 
   const onImageChange = (e) => {
     setImages([...e.target.files]);

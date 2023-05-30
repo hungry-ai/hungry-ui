@@ -23,7 +23,7 @@ const MyPagination = ({ totalPages, width, setPage }) => {
         ? 2 * width
         : totalPages - 1
     );
-  }, [currentPage]);
+  }, [currentPage, width, totalPages]);
 
   const navigate = (i) => () => {
     setPage(i);

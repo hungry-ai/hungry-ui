@@ -21,6 +21,7 @@ const Review = ({ url, username, rating, timestamp, onLoad, onError }) => {
           }}
           onError={onError}
           id={`${username}_${timestamp}_${rating}`}
+          alt={`${username}_${timestamp}_${rating}`}
         />
       </Col>
       <Col>
@@ -32,10 +33,10 @@ const Review = ({ url, username, rating, timestamp, onLoad, onError }) => {
 };
 
 const ReviewsRow = ({ reviews, rating }) => {
-  const [validReviews, setValidReviews] = useState(
+  const [validReviews, _] = useState(
     reviews.filter(
       (review) =>
-        review.rating == rating && review.username != `i.rate.${rating}`
+        review.rating === rating && review.username !== `i.rate.${rating}`
     )
   );
   const [numLoading, setNumLoading] = useState(validReviews.length);
@@ -53,7 +54,7 @@ const ReviewsRow = ({ reviews, rating }) => {
   return (
     <>
       <h2>Rating: {rating}</h2>
-      {numLoading == 0 && numLoaded == 0 && (
+      {numLoading === 0 && numLoaded === 0 && (
         <p>No reviews with rating {rating}.</p>
       )}
       {numLoading > 0 && (
