@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const loadRestaurants = async (instagramUsername, zip) =>
   axios
-    .get(`http://localhost:5000/instagram/restaurants`, {
+    .get(`http://hungry-api.up.railway.app/instagram/restaurants`, {
       params: { username: instagramUsername, zip: zip },
     })
     .then((res) =>
@@ -22,7 +22,7 @@ export const loadRestaurants = async (instagramUsername, zip) =>
 
 export const loadReviews = async (instagramUsername) =>
   axios
-    .get(`http://localhost:5000/instagram/stories`, {
+    .get(`http://hungry-api.up.railway.app/instagram/stories`, {
       params: { username: instagramUsername },
     })
     .then((res) =>
@@ -37,7 +37,7 @@ export const loadReviews = async (instagramUsername) =>
 
 export const loadAllReviews = async () =>
   axios
-    .get(`http://localhost:5000/instagram/stories`)
+    .get(`http://hungry-api.up.railway.app/instagram/stories`)
     .then((res) =>
       res && res.data && res.data.stories && Array.isArray(res.data.stories)
         ? res.data.stories
