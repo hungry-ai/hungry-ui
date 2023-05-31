@@ -6,11 +6,6 @@ import SearchResults from "../../components/SearchResults";
 import About from "../../components/About";
 import Alert from "react-bootstrap/Alert";
 import { loadRestaurants, loadReviews } from "../../services/search";
-/*import {
-  loadRestaurants,
-  loadReviews,
-  //loadStats,
-} from "../../services/searchTest";*/
 
 const Home = () => {
   const [showHome, setShowHome] = useState(true);
