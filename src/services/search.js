@@ -43,6 +43,14 @@ export const loadAllReviews = async () =>
         ? res.data.stories
         : []
     )
+    .then((stories) =>
+      stories.map((story) => ({
+        username: story.instagramUsername,
+        url: story.url,
+        rating: story.rating,
+        timestamp: story.created_time,
+      }))
+    )
     .catch((error) => {
       console.log(`loadAllReviews() failed:\n${error}`);
       return [];
